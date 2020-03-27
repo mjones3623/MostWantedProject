@@ -16,7 +16,12 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits***JF***
-      searchResults = searchByGenderAndDob(people);   
+
+      searchResults = searchByGender(people);          
+      searchResults = searchByDob(people); 
+      searchResults = searchByHeight(people);
+      searchResults = searchByWeight(people); 
+      searchResults = searchByEyeColor(people);         
       break;
       default:
     app(people); // restart app
@@ -113,12 +118,71 @@ function mf(input){
   return input.toLowerCase() == "male" || input.toLowerCase == "female";
 }
 
-  function searchByGenderAndDob(people){
+  function searchByGender(people){
   let gender = promptFor("What is the person's gender? Enter 'male' or 'female'", chars);
-  let dob = promptFor("What is the person's date of birth? Enter 'dd/mm/yyyy'", chars);
-
+ 
   let foundPerson = people.filter(function(person){
-    if(person.gender === gender && person.dob === dob){
+    if(person.gender === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByDob(people){
+  let dob = promptFor("What is the person's date of birth? Enter dd/mm/yyyy", chars);
+ 
+  let foundPerson = people.filter(function(person){
+    if(person.dob === dob){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByHeight(people){
+  let height = promptFor("What is the person's height? Enter height in 'inches'", chars);
+ 
+  let foundPerson = people.filter(function(person){
+    if(person.height === height){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+  function searchByWeight(people){
+    let weight = promptFor("What is the person's weight? Enter weight in 'lbs'", chars);
+   
+    let foundPerson = people.filter(function(person){
+      if(person.weight === weight){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    
+    return foundPerson;
+  }
+
+
+function searchByEyeColor(people){
+  let eyeColor = promptFor("What is the person's eye color? Enter 'brown' 'black' 'hazel' 'blue' or 'green'", chars);
+ 
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor === eyeColor){
       return true;
     }
     else{
