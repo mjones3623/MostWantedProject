@@ -29,6 +29,8 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
+  
+  displayPerson(person);
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
@@ -64,15 +66,25 @@ function searchByName(people){
 
   let foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
-      return true;
-    }
+            
+        return true;
+        
+      }
+    
     else{
       return false;
     }
   })
-  // TODO: find the person using the name they entered
+    // TODO: find the person using the name they entered
+   
+  
+  
+  // console.log(foundPerson.firstName);
   return foundPerson;
+
 }
+
+
 
 // alerts a list of people
 function displayPeople(people){
@@ -82,6 +94,8 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
+ 
+  
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
