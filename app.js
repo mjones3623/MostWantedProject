@@ -15,7 +15,8 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      // TODO: search by traits***JF***
+      searchResults = searchByGenderAndDob(people);   
       break;
       default:
     app(people); // restart app
@@ -120,4 +121,24 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+//*****JF ******
+function mf(input){
+  return input.toLowerCase() == "male" || input.toLowerCase == "female";
+}
+
+  function searchByGenderAndDob(people){
+  let gender = promptFor("What is the person's gender? Enter 'male' or 'female'", chars);
+  let dob = promptFor("What is the person's date of birth? Enter 'dd/mm/yyyy'", chars);
+
+  let foundPerson = people.filter(function(person){
+    if(person.gender === gender && person.dob === dob){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
 }
