@@ -2,9 +2,7 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-let object = data[0].firstName;
-document.getElementById("demoDiv").innerHTML = object;
-// console.log(object.firstName);
+
 
 // app is the function called to start the entire application
 function app(people){
@@ -27,12 +25,12 @@ function app(people){
   mainMenu(searchResults, people);
 }
 
+
+
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  
-  displayPerson(person);
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
+    /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
@@ -44,6 +42,20 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     // TODO: get person's info
+      let spouse = searchFoundPersonSpouse(people, person);
+      var parents = searchFoundPersonParents(people, person);
+
+      alert("Name: " + person.firstName + " " + person.lastName + "\n"+
+        "Gender: " + person.gender +"\n"+
+        "DOB: " + person.dob +"\n"+
+        "Height: " + person.height +"\n"+
+        "Weight: " + person.weight +"\n"+
+        "Eye Color: " + person.eyeColor +"\n"+
+        "Occupataion: " + person.occupation +"\n"+
+        "Current Spouse: " +spouse.firstName+" "+spouse.lastName+"\n"+
+        "Parents1: " +parents[0].firstName+" "+parents[0].lastName+"\n"+
+        "Parents2: " +parents[1].firstName+" "+parents[1].lastName+"\n");
+                
     break;
     case "family":
     // TODO: get person's family
@@ -77,11 +89,8 @@ function searchByName(people){
     }
   })
     // TODO: find the person using the name they entered
-   
-  
-  
-  // console.log(foundPerson.firstName);
-  return foundPerson;
+   //Mat:  added the index to reference the object in the returned array 
+  return foundPerson[0]; 
 
 }
 
@@ -142,3 +151,49 @@ function mf(input){
   
   return foundPerson;
 }
+
+//Mat: added this function to find spouse for display in main menue
+function searchFoundPersonSpouse(people, person){
+  
+  let  spouse = person.currentSpouse;
+
+  let foundPersonSpouse = people.filter(function(person){
+    if(person.id === spouse){
+            
+        return true;
+        
+      }
+    
+    else{
+      return false;
+    }
+  })
+    
+  return foundPersonSpouse[0]; 
+
+}
+
+function searchFoundPersonParents(people, person){
+  
+  let  parents = person.parents;
+
+  let foundPersonParents = people.filter(function(person){
+    if(person.id === parents[0] || person.id === parents[1]){
+            
+        return true;
+        
+      }
+    
+    else{
+      return false;
+    }
+  })
+    
+  return foundPersonParents; 
+
+}
+
+
+
+
+
