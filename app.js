@@ -39,29 +39,107 @@ function mainMenu(person, people){
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
+  let spouse = searchFoundPersonSpouse(people, person);
+    var parents = searchFoundPersonParents(people, person);
+      
+      var children = [];
+      let counter = (people.length)-1;
+      var foundPersonChildren = searchFoundPersonChildren(people, person,counter,children)
+      let emptyArray = [];
+
   switch(displayOption){
     case "info":
     // TODO: get person's info
-      let spouse = searchFoundPersonSpouse(people, person);
-      var parents = searchFoundPersonParents(people, person);
-
+         
       alert("Name: " + person.firstName + " " + person.lastName + "\n"+
         "Gender: " + person.gender +"\n"+
         "DOB: " + person.dob +"\n"+
         "Height: " + person.height +"\n"+
         "Weight: " + person.weight +"\n"+
         "Eye Color: " + person.eyeColor +"\n"+
-        "Occupataion: " + person.occupation +"\n"+
-        "Current Spouse: " +spouse.firstName+" "+spouse.lastName+"\n"+
-        "Parents1: " +parents[0].firstName+" "+parents[0].lastName+"\n"+
-        "Parents2: " +parents[1].firstName+" "+parents[1].lastName+"\n");
-                
+        "Occupataion: " + person.occupation +"\n")
+                     
     break;
     case "family":
     // TODO: get person's family
+    
+
+      alert("You will now see three pop up windows like this." +"\n"+
+      "The first will show you spouse info." + "\n" +
+      "The second will show you parent info." + "\n" +
+      "The third will show you spouse info.")
+
+      //Spouse/////////////////////////////////////
+      if(spouse == null){
+        alert("This person does not have a spouse.");
+      }
+      else{
+        alert("Current Spouse: " +spouse.firstName+" "+spouse.lastName+"");
+      }
+      
+      //Parents////////////////////////////////////
+      if(parents.length === emptyArray.length){
+        alert("This person does not have parents listed in our database.");
+      }
+      else if(parents.length === 1){
+        alert("Only one parent listed in our data.  Parent 1: " +parents[0].firstName+" "+parents[0].lastName+"");
+      }
+      else{
+        alert("Parent 1: " +parents[0].firstName+" "+parents[0].lastName+"\n"+
+         "Parents2: " +parents[1].firstName+" "+parents[1].lastName+"\n");
+      }
+
+      //Children///////////////////////////////////
+      if(foundPersonChildren.length === emptyArray.length){
+        alert("Our data does not show any children for this person.");
+      }
+      else if(foundPersonChildren.length === 1){
+        alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"");
+      }
+      else if(foundPersonChildren.length === 2){
+        alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
+        "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n");
+      }
+      else if(foundPersonChildren.length === 3){
+         alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
+        "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n"+
+        "Child3: " +foundPersonChildren[2].firstName+" "+foundPersonChildren[2].lastName+"\n");
+      }
+      else if(foundPersonChildren.length === 4){
+        alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
+        "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n"+
+        "Child3: " +foundPersonChildren[2].firstName+" "+foundPersonChildren[2].lastName+"\n"+
+        "Child4: " +foundPersonChildren[3].firstName+" "+foundPersonChildren[3].lastName+"\n");
+      }
+
     break;
     case "descendants":
     // TODO: get person's descendants
+    
+      //Children///////////////////////////////////
+      if(foundPersonChildren.length === 0){
+        alert("Our data does not show any children for this person.");
+      }
+      else if(foundPersonChildren.length == 1){
+        alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"");
+      }
+      else if(foundPersonChildren.length === 2){
+        alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
+        "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n");
+      }
+      else if(foundPersonChildren.lenght === 3){
+         alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
+        "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n"+
+        "Child3: " +foundPersonChildren[2].firstName+" "+foundPersonChildren[2].lastName+"\n");
+      }
+      else if(foundPersonChildren.length === 4){
+        alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
+        "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n"+
+        "Child3: " +foundPersonChildren[2].firstName+" "+foundPersonChildren[2].lastName+"\n"+
+        "Child4: " +foundPersonChildren[3].firstName+" "+foundPersonChildren[3].lastName+"\n");
+      }
+
+   
     break;
     case "restart":
     app(people); // restart
@@ -194,6 +272,22 @@ function searchFoundPersonParents(people, person){
 }
 
 
+function searchFoundPersonChildren(people, person,counter,children){
+
+      
+
+      if(counter>0){
+
+      if(person.id === people[counter].parents[0] || person.id === people[counter].parents[1])
+        
+        children.push(people[counter]);
+        
+        searchFoundPersonChildren(people, person, counter-1,children);
+
+    }
+    return children;
+      
+}
 
 
 
