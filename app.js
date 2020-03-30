@@ -14,11 +14,18 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits***JF***
-      searchResults = searchByGenderAndDob(people);   
+      
+      searchResults = searchByGender(people)        
+      searchResults = searchByDob(people)
+      searchResults = searchByHeight(people);
+      searchResults = searchByWeight(people);
+      searchResults = searchByEyeColor(people);
       break;
       default:
-    app(people); // restart app
+      app(people); // restart app
       break;
+      
+           
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
@@ -182,8 +189,6 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
- 
-  
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
@@ -211,15 +216,89 @@ function chars(input){
 }
 //*****JF ******
 function mf(input){
-  return input.toLowerCase() == "male" || input.toLowerCase == "female";
+  return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
 
-  function searchByGenderAndDob(people){
-  let gender = promptFor("What is the person's gender? Enter 'male' or 'female'", chars);
-  let dob = promptFor("What is the person's date of birth? Enter 'dd/mm/yyyy'", chars);
 
+function parseToInt(input){
+ input.parseInt()
+  return value;
+}                    
+
+  function searchByGender(people){
+  let gender = promptFor("What is the person's gender? Enter 'male' or 'female'", mf);
+ 
   let foundPerson = people.filter(function(person){
-    if(person.gender === gender && person.dob === dob){
+    if(person.gender === gender){
+      alert("Found : " + person.firstName + " " + person.lastName)
+      return true;     
+    }
+    
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByDob(people){
+let dob = promptFor("What is the person's date of birth? Enter m/d/yyyy", chars);
+ ;
+  let foundPerson = people.filter(function(person){
+    if(person.dob === dob) {
+      alert("Found : " + person.firstName + " " + person.lastName)
+      return true;
+    }
+    else{            
+      return false; 
+    }
+    
+    
+  })
+  
+  return foundPerson;
+}
+
+function searchByHeight(people){
+  let height = promptFor("What is the person's height? Enter height in 'inches'", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.height === parseInt(height)){
+      alert("Found : " + person.firstName + " " + person.lastName)
+      return true;
+    }
+    else{
+      return false;
+    }
+    
+  })
+  
+  return foundPerson;
+}
+  function searchByWeight(people){
+    let weight = promptFor("What is the person's weight? Enter weight in 'lbs'", chars);
+   
+    let foundPerson = people.filter(function(person){
+      if(person.weight === parseInt(weight)){
+        alert("Found : " + person.firstName + " " + person.lastName)
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    
+    return foundPerson;
+  }
+
+
+  function searchByEyeColor(people){
+  let eyeColor = promptFor("What is the person's eye color? Enter 'brown' 'black' 'hazel' 'blue' or 'green'", chars);
+ 
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor === eyeColor){
+      alert("Found : " + person.firstName + " " + person.lastName)
       return true;
     }
     else{
@@ -230,46 +309,6 @@ function mf(input){
   return foundPerson;
 }
 
-//Mat: added this function to find spouse for display in main menue
-function searchFoundPersonSpouse(people, person){
-  
-  let  spouse = person.currentSpouse;
-
-  let foundPersonSpouse = people.filter(function(person){
-    if(person.id === spouse){
-            
-        return true;
-        
-      }
-    
-    else{
-      return false;
-    }
-  })
-    
-  return foundPersonSpouse[0]; 
-
-}
-
-function searchFoundPersonParents(people, person){
-  
-  let  parents = person.parents;
-
-  let foundPersonParents = people.filter(function(person){
-    if(person.id === parents[0] || person.id === parents[1]){
-            
-        return true;
-        
-      }
-    
-    else{
-      return false;
-    }
-  })
-    
-  return foundPersonParents; 
-
-}
 
 
 function searchFoundPersonChildren(people, person,counter,children){
@@ -288,6 +327,7 @@ function searchFoundPersonChildren(people, person,counter,children){
     return children;
       
 }
+
 
 
 
