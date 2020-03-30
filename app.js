@@ -134,7 +134,7 @@ function mainMenu(person, people){
         alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
         "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n");
       }
-      else if(foundPersonChildren.lenght === 3){
+      else if(foundPersonChildren.length === 3){
          alert("Child1: " +foundPersonChildren[0].firstName+" "+foundPersonChildren[0].lastName+"\n"+
         "Child2: " +foundPersonChildren[1].firstName+" "+foundPersonChildren[1].lastName+"\n"+
         "Child3: " +foundPersonChildren[2].firstName+" "+foundPersonChildren[2].lastName+"\n");
@@ -309,7 +309,45 @@ function searchByHeight(people){
   return foundPerson;
 }
 
+function searchFoundPersonParents(people, person){
+  
+  let  parents = person.parents;
 
+  let foundPersonParents = people.filter(function(person){
+    if(person.id === parents[0] || person.id === parents[1]){
+            
+        return true;
+        
+      }
+    
+    else{
+      return false;
+    }
+  })
+    
+  return foundPersonParents; 
+
+}
+
+function searchFoundPersonSpouse(people, person){
+  
+  let  spouse = person.currentSpouse;
+
+  let foundPersonSpouse = people.filter(function(person){
+    if(person.id === spouse){
+            
+        return true;
+        
+      }
+    
+    else{
+      return false;
+    }
+  })
+    
+  return foundPersonSpouse[0]; 
+
+}
 
 function searchFoundPersonChildren(people, person,counter,children){
 
